@@ -1,6 +1,7 @@
 .col {
     border: black 2px solid;
     font-weight: bold;
+    min-height: 100px;
 }
 .col:nth-child(4n-2){
     background-color: green;
