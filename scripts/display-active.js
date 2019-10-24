@@ -61,6 +61,25 @@ var getOnlyColumnClasses = (elem) => {
     }
     return column_classes;
 };
+var getSpecificSizeClasses = (elem, size) => {
+    var specific_classes = [];
+    if(typeof elem !== 'undefined'){
+        var col = bootstrap_properties.column_name;
+        var search_array = [];
+        if(Array.isArray(elem)){
+            search_array = elem;
+        }
+        else{
+            search_array = getOnlyColumnClasses(elem);
+        }
+        search_array.forEach( (value, index) => {
+            if( value.startsWith(col + '-' + size)){
+                specific_classes.push(value);
+            }
+        });
+    }
+    return specific_classes;
+};
 $('div').each( (index, elem, v3) => {
     var detected_sizes = detectWindowSize();
 
@@ -72,7 +91,12 @@ $('div').each( (index, elem, v3) => {
     if(column_classes.length > 0){
         console.log({
             detected_sizes: detected_sizes,
-            column_classes: getOnlyColumnClasses(elem)
+            column_classes: getOnlyColumnClasses(elem),
+            xs: getSpecificSizeClasses(elem, 'xs'),
+            sm: getSpecificSizeClasses(elem, 'sm'),
+            md: getSpecificSizeClasses(elem, 'md'),
+            lg: getSpecificSizeClasses(elem, 'lg'),
+            xl: getSpecificSizeClasses(elem, 'xl')
         });
     }
     
