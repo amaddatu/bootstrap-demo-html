@@ -21,7 +21,7 @@
     background-color: white;
     color: black;
     z-index: 1;
-    opacity: .9;
+    opacity: .8;
 }
 .col:nth-child(4n-2){
     background-color: #009C3B;
