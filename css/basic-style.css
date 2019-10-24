@@ -1,7 +1,27 @@
+.backdrop{
+    position: fixed;
+    z-index: 0;
+    height: 100%;
+    width: 100%;
+}
+.backdrop-cell-wrapper div{
+    height: 100vh;
+    width: 8.33333%;
+}
+.backdrop-cell-wrapper div:nth-child(2n-1){
+    background-color: rgba(0,0,0,0.1);
+}
+.backdrop-cell-wrapper div:nth-child(2n){
+    background-color: rgba(0,0,0,0.2);
+}
 .col {
     border: black 2px solid;
     font-weight: bold;
     min-height: 100px;
+    background-color: white;
+    color: black;
+    z-index: 1;
+    opacity: .9;
 }
 .col:nth-child(4n-2){
     background-color: #009C3B;
