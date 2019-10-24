@@ -13,13 +13,10 @@ var bootstrap_properties = {
     }
 };
 var detectWindowSize = () => {
-    var detected_sizes = [ bootstrap_properties.sizes[0] ];
+    var detected_sizes = [ ];
     var view_width = $(window).width();
     bootstrap_properties.sizes.forEach( (value, index) => {
-        if(index == 0){
-            return;
-        }
-        else{
+        if(typeof bootstrap_properties.breaks[value] !== 'undefined'){
             if(bootstrap_properties.breaks[value] <= view_width){
                 detected_sizes.push(value);
             }
