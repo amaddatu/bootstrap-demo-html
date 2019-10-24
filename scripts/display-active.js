@@ -65,6 +65,7 @@ var getSpecificSizeClasses = (elem, size) => {
     var specific_classes = [];
     if(typeof elem !== 'undefined'){
         var col = bootstrap_properties.column_name;
+        var sizes = bootstrap_properties.sizes;
         var search_array = [];
         if(Array.isArray(elem)){
             search_array = elem;
@@ -73,8 +74,21 @@ var getSpecificSizeClasses = (elem, size) => {
             search_array = getOnlyColumnClasses(elem);
         }
         search_array.forEach( (value, index) => {
-            if( value.startsWith(col + '-' + size)){
-                specific_classes.push(value);
+            if(size !== 'default'){
+                if( value.startsWith(col + '-' + size)){
+                    specific_classes.push(value);
+                }
+            }
+            else{
+                var non_default = false;
+                for(var i = 0; i < sizes.length; i++){
+                    if( value.startsWith(col + '-' + sizes[i]) ){
+                        non_default = true;
+                    }
+                }
+                if(!non_default){
+                    specific_classes.push(value);
+                }
             }
         });
     }
@@ -82,16 +96,26 @@ var getSpecificSizeClasses = (elem, size) => {
 };
 $('div').each( (index, elem, v3) => {
     var detected_sizes = detectWindowSize();
+    detected_sizes = detected_sizes.reverse();
+    var column_classes = getOnlyColumnClasses(elem);
 
     // console.log(detected_sizes);
     // console.log(elem.classList);
     // console.log($('<span>').addClass('tester').text("??test??").get(0).outerHTML);
     // applyTextIndication("test", $('<span>').addClass('tester').text("??text??"), elem, '.tester');
-    var column_classes = getOnlyColumnClasses(elem);
     if(column_classes.length > 0){
+        var found = false;
+        for(var i = 0; i < detected_sizes.length; i++){
+            var size = detected_sizes[i];
+            var specific_classes = getSpecificSizeClasses(column_classes, size);
+            if(specific_classes.length > 0){
+
+            }
+        }
         console.log({
             detected_sizes: detected_sizes,
             column_classes: getOnlyColumnClasses(elem),
+            default: getSpecificSizeClasses(elem, 'default'),
             xs: getSpecificSizeClasses(elem, 'xs'),
             sm: getSpecificSizeClasses(elem, 'sm'),
             md: getSpecificSizeClasses(elem, 'md'),
