@@ -94,34 +94,45 @@ var getSpecificSizeClasses = (elem, size) => {
     }
     return specific_classes;
 };
-$('div').each( (index, elem, v3) => {
-    var detected_sizes = detectWindowSize();
-    detected_sizes = detected_sizes.reverse();
-    var column_classes = getOnlyColumnClasses(elem);
-
-    // console.log(detected_sizes);
-    // console.log(elem.classList);
-    // console.log($('<span>').addClass('tester').text("??test??").get(0).outerHTML);
-    // applyTextIndication("test", $('<span>').addClass('tester').text("??text??"), elem, '.tester');
-    if(column_classes.length > 0){
-        var found = false;
-        for(var i = 0; i < detected_sizes.length; i++){
-            var size = detected_sizes[i];
-            var specific_classes = getSpecificSizeClasses(column_classes, size);
-            if(specific_classes.length > 0){
-
-            }
-        }
-        console.log({
-            detected_sizes: detected_sizes,
-            column_classes: getOnlyColumnClasses(elem),
-            default: getSpecificSizeClasses(elem, 'default'),
-            xs: getSpecificSizeClasses(elem, 'xs'),
-            sm: getSpecificSizeClasses(elem, 'sm'),
-            md: getSpecificSizeClasses(elem, 'md'),
-            lg: getSpecificSizeClasses(elem, 'lg'),
-            xl: getSpecificSizeClasses(elem, 'xl')
-        });
-    }
+var applyDisplayText = () => {
+    $('div').each( (index, elem, v3) => {
+        var detected_sizes = detectWindowSize();
+        detected_sizes = detected_sizes.reverse();
+        var column_classes = getOnlyColumnClasses(elem);
     
-});
+        // console.log(detected_sizes);
+        // console.log(elem.classList);
+        // console.log($('<span>').addClass('tester').text("??test??").get(0).outerHTML);
+        // applyTextIndication("test", $('<span>').addClass('tester').text("??text??"), elem, '.tester');
+        if(column_classes.length > 0){
+            var found = false;
+            var applied_classes = [];
+            for(var i = 0; i < detected_sizes.length; i++){
+                var size = detected_sizes[i];
+                var specific_classes = getSpecificSizeClasses(column_classes, size);
+                if(specific_classes.length > 0){
+                    applied_classes = specific_classes;
+                    break;
+                }
+            }
+            if(applied_classes.length <= 0){
+                applied_classes = getSpecificSizeClasses(column_classes, 'default');
+            }
+            applyTextIndication(applied_classes.join(', '), $('<span>').addClass('tester').text("??text??"), elem, '.tester')
+            console.log({
+                detected_sizes: detected_sizes,
+                column_classes: getOnlyColumnClasses(elem),
+                default: getSpecificSizeClasses(elem, 'default'),
+                xs: getSpecificSizeClasses(elem, 'xs'),
+                sm: getSpecificSizeClasses(elem, 'sm'),
+                md: getSpecificSizeClasses(elem, 'md'),
+                lg: getSpecificSizeClasses(elem, 'lg'),
+                xl: getSpecificSizeClasses(elem, 'xl')
+            });
+        }
+        
+    });
+};
+$(document).ready(applyDisplayText);
+
+$(window).resize(applyDisplayText);
