@@ -40,7 +40,7 @@ var applyTextIndication = (text, template, elem, selector) => {
         }
 
         if(!found){
-            $(elem).append($.parseHTML(output));
+            $(elem).prepend($.parseHTML(output));
         }
     }
     return output;
@@ -118,7 +118,11 @@ var applyDisplayText = () => {
             if(applied_classes.length <= 0){
                 applied_classes = getSpecificSizeClasses(column_classes, 'default');
             }
-            applyTextIndication(applied_classes.join(', '), $('<span>').addClass('tester').text("??text??"), elem, '.tester')
+            applyTextIndication(
+                applied_classes.join(', '), 
+                $('<div>').append($('<div>').addClass('applied-classes').text("??text??")).append($('<br>')), 
+                elem, 
+                '.applied-classes');
             console.log({
                 detected_sizes: detected_sizes,
                 column_classes: getOnlyColumnClasses(elem),
