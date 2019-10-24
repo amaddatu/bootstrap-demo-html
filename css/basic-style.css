@@ -4,14 +4,14 @@
     min-height: 100px;
 }
 .col:nth-child(4n-2){
-    background-color: green;
-    color: white
+    background-color: #009C3B;
+    color: white;
 }
 .col:nth-child(4n-1){
-    background-color: red;
-    color: white
+    background-color: #FFDF00;
+    color: black;
 }
 .col:nth-child(4n){
-    background-color: blue;
-    color: white
+    background-color: #002776;
+    color: white;
 }
