@@ -45,16 +45,35 @@ var applyTextIndication = (text, template, elem, selector) => {
     }
     return output;
 };
+var getOnlyColumnClasses = (elem) => {
+    var column_classes = [];
+    if(typeof elem !== 'undefined'){
+        var col = bootstrap_properties.column_name;
+        var class_list = $(elem).get(0).classList;
+        class_list.forEach( (value, index) => {
+            if(value == col){
+                column_classes.push(value);
+            }
+            else if( value.startsWith(col + '-')){
+                column_classes.push(value);
+            }
+        });
+    }
+    return column_classes;
+};
 $('div').each( (index, elem, v3) => {
     var detected_sizes = detectWindowSize();
 
     // console.log(detected_sizes);
     // console.log(elem.classList);
     // console.log($('<span>').addClass('tester').text("??test??").get(0).outerHTML);
-    applyTextIndication("test", $('<span>').addClass('tester').text("??text??"), elem, '.tester');
-
-
-    console.log({
-        detected_sizes: detected_sizes
-    })
+    // applyTextIndication("test", $('<span>').addClass('tester').text("??text??"), elem, '.tester');
+    var column_classes = getOnlyColumnClasses(elem);
+    if(column_classes.length > 0){
+        console.log({
+            detected_sizes: detected_sizes,
+            column_classes: getOnlyColumnClasses(elem)
+        });
+    }
+    
 });
